@@ -1,6 +1,6 @@
 # # TODO: Get the secret code from https://www.notion.so/my-integrations -> select your Task Manager integration and get your secret code
 # Fake Example: authenticator = "secret_6PKL7crumjBYvxDpPcB5ItgQrLCRUTFcYlfFV6CXVTk"
-authenticator = "secret_6PKL7crumjBYvxDqPcB5IrgQtLCRUTFcHlfFV2CXVRp"
+authenticator = ""
 
 
 # TODO: get your Database ID
