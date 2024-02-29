@@ -409,6 +409,7 @@ for task in items_tasks:
         notion.pages.update(id, properties={"Stage": {'relation': [{'id': Stage_id}]}})
 
     # Add missing Project
+    # Note: this code will fail if the Milestone has no Project. This should not happen when properly following the setup page.
     if len(task['properties']['Stage']['relation']) == 0:
         Project_id = Milestone_object['properties']['Project']['relation'][0]['id']
         notion.pages.update(id, properties={"Project": {'relation': [{'id': Project_id}]}})
