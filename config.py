@@ -1,7 +1,5 @@
-
-
-# # TODO: Get the secret code from https://www.notion.so/my-integrations -> select your Task Manager integration and get your secret code
-# Example: authenticator = "secret_6PKL7crumjBYvxDpPcB5ItgQrLCRUTFcYlfFV6CXVTk"
+# # TODO: Get your secret code from https://www.notion.so/my-integrations -> select your Task Manager integration and get your secret code
+# Fake Example: authenticator = "secret_6PKL7crumjBYvxDpPcB5ItgQrLCRUTFcYlfFV6CXVTk"
 authenticator = ""
 #
 #
@@ -21,5 +19,5 @@ ID_DB_Tasks = ""
 ID_DB_Projects = ""
 ID_DB_Stages = ""
 ID_DB_Milestones = ""
-ID_Home = ""
+
 
