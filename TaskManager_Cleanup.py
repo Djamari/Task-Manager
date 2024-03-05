@@ -7,6 +7,7 @@ import os
 import numpy as np
 import pandas as pd
 import xlsxwriter
+import time
 from funcs import get_all_items, empty_notes
 import excel2img
 
@@ -367,8 +368,9 @@ worksheet.activate()
 workbook.close()
 
 # Save a picture
+time.sleep(1)
 excel2img.export_img(excel_filename,'planning_log/planning_visualization_' + datetime.today().strftime("%Y-%m-%d") + '.png')
-
+time.sleep(1)
 
 ### Add Stage/Project information if deducible
 # Items with a Milestone but missing information upwards
