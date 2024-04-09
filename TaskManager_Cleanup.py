@@ -10,6 +10,7 @@ import xlsxwriter
 import time
 from funcs import get_all_items, empty_notes
 import excel2img
+import pathlib
 
 print("Cleaning up the Archived tasked...")
 
@@ -147,7 +148,7 @@ with open(filename_data, "w") as outfile:
     json.dump(data_log, outfile, indent=4)
 
 ## Create "image" of current planning
-excel_filename = 'planning_log/planning_visualization.xlsx'
+excel_filename = os.path.join(pathlib.Path().resolve(), 'planning_log/planning_visualization.xlsx')
 
 # Open (or create) Excel file
 workbook = xlsxwriter.Workbook(excel_filename)
@@ -190,10 +191,16 @@ format_bold_left_border = workbook.add_format(
     }
 )
 
-colors =  ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
-formats_color = []
-for c in colors:
-    formats_color.append(workbook.add_format({"fg_color": c}))
+# Define colors
+colors =  ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728','#ffea00', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#17becf']
+formats_color_basic = []
+for c in colors[:5]:
+    formats_color_basic.append(workbook.add_format({"fg_color": c}))
+
+formats_color_other = []
+for c in colors[5:]:
+    formats_color_other.append(workbook.add_format({"fg_color": c}))
+
 
 
 # Create first row: years
@@ -255,7 +262,21 @@ for milestone_idx in range(len(sorted_milestones_start.keys())):
         row_idx_start_stage = row_idx_start
         color_idx = 0
         for stage_name in stage_names_ordered:
-
+            # Decide on color
+            increment_color = False
+            if 'design' in stage_name.lower():
+                c = formats_color_basic[0]
+            elif 'gather' in stage_name.lower():
+                c = formats_color_basic[1]
+            elif 'preproc' in stage_name.lower():
+                c = formats_color_basic[2]
+            elif 'analy' in stage_name.lower():
+                c = formats_color_basic[3]
+            elif 'writ' in stage_name.lower():
+                c = formats_color_basic[4]
+            else:
+                c = formats_color_other[color_idx]
+                increment_color = True
             keys_this_stage = [key for key in keys_this_project if stage_name in key]
             nr_of_milestones = len(keys_this_stage)
 
@@ -281,7 +302,7 @@ for milestone_idx in range(len(sorted_milestones_start.keys())):
 
                 # Format this range
                 for column in range(start_column, end_column + 1):
-                    worksheet.write(xlsxwriter.utility.xl_col_to_name(column) + str(current_row), "", formats_color[color_idx])
+                    worksheet.write(xlsxwriter.utility.xl_col_to_name(column) + str(current_row), "", c)
 
                 # update row index
                 current_row += 1
@@ -292,7 +313,8 @@ for milestone_idx in range(len(sorted_milestones_start.keys())):
 
             # Update index
             row_idx_start_stage += nr_of_milestones
-            color_idx += 1
+            if increment_color:
+                color_idx += 1
 
 
         # Update starting row
@@ -373,6 +395,7 @@ excel2img.export_img(excel_filename,'planning_log/planning_visualization_' + dat
 time.sleep(1)
 
 ### Add Stage/Project information if deducible
+print("Adding missing info...")
 # Items with a Milestone but missing information upwards
 filter_items = {
   "and": [{
@@ -400,7 +423,7 @@ items_tasks = get_all_items(notion, database_id=cfg.ID_DB_Tasks, filter=filter_i
 milestone_items = get_all_items(notion, database_id=cfg.ID_DB_Milestones)
 
 # Loop through tasks and add info
-for task in items_tasks:
+for task in tqdm(items_tasks):
     id = task['id']
     Milestone_id = task['properties']['Milestone']['relation'][0]['id']
     Milestone_object = [m for m in milestone_items if m['id']==Milestone_id][0]
