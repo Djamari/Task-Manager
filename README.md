@@ -4,4 +4,4 @@ Use the 'Duplicate' button to copy the setup to your own account.
 I have noticed some issues with the Notion website and Firefox, so try to use another browser if the above link does not work.
 
 
-This system is completely free charge. If you want to thank me for my efforts, you can consider buying me a lactose-free cappuccino through a donation using this link: [https://betaalverzoek.rabobank.nl/betaalverzoek/?id=D94ciqV_QkeaV3CSekOXgg](https://betaalverzoek.rabobank.nl/betaalverzoek/?id=D94ciqV_QkeaV3CSekOXgg) (Valid until May 1st 2024; will be updated)
+This system is completely free charge. If you want to thank me for my efforts, you can consider buying me a lactose-free cappuccino through a donation using this link: [https://betaalverzoek.rabobank.nl/betaalverzoek/?id=w4JeJzm6Sx-DZawQ7WW1lg](https://betaalverzoek.rabobank.nl/betaalverzoek/?id=w4JeJzm6Sx-DZawQ7WW1lg) (Valid until June 27, 2024; will be updated)
